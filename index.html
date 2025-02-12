@@ -26,28 +26,61 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .section {
+            margin-top: 20px;
+            padding: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+        .section h2 {
+            margin: 0;
+            color: #333;
+        }
         .post {
             text-align: left;
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
-        .post h2 {
+        .post h3 {
             margin: 0;
             color: #333;
         }
         .post p {
             color: #666;
         }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
     <header>QCat Blog</header>
     <div class="container">
-        <div class="post">
-            <h2>Welcome to My Blog</h2>
-            <p>This is where I practice my writing and share some translation pieces.</p>
+        
+        <div class="section" id="writings">
+            <h2>My Writings</h2>
+            <div class="post">
+                <h3><a href="#">Sample Writing Post 1</a></h3>
+                <p>Short description of the writing...</p>
+            </div>
+            <div class="post">
+                <h3><a href="#">Sample Writing Post 2</a></h3>
+                <p>Another short description...</p>
+            </div>
         </div>
         
+        <div class="section" id="translations">
+            <h2>Translations</h2>
+            <div class="post">
+                <h3><a href="#">Sample Translation 1</a></h3>
+                <p>A brief overview of the translated content...</p>
+            </div>
+            <div class="post">
+                <h3><a href="#">Sample Translation 2</a></h3>
+                <p>Another translated piece...</p>
+            </div>
+        </div>
+
         <!-- Comment Section (Disqus) -->
         <div id="disqus_thread"></div>
         <script>
