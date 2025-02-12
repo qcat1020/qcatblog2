@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCat Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .post {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .post h2 {
+            margin: 0;
+            color: #333;
+        }
+        .post p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>QCat Blog</header>
+    <div class="container">
+        <div class="post">
+            <h2>Welcome to My Blog</h2>
+            <p>This is where I practice my writing and share some translation pieces.</p>
+        </div>
+        
+        <!-- Comment Section (Disqus) -->
+        <div id="disqus_thread"></div>
+        <script>
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://qcat-blog.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+</body>
+</html>
