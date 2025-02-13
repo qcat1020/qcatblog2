@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Post - QCat Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Write a New Post</h1>
+    <input type="text" id="title" placeholder="Post Title">
+    <textarea id="content" placeholder="Write your post here..."></textarea>
+    <button onclick="submitPost()">Publish</button>
+
+    <script>
+        function submitPost() {
+            var title = document.getElementById("title").value;
+            var content = document.getElementById("content").value;
+
+            if (!title || !content) {
+                alert("Please fill in both title and content!");
+                return;
+            }
+
+            var githubToken = "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"; // 这里替换为你的 GitHub Token
+            var repoOwner = "qcat1020";  // 你的 GitHub 用户名
+            var repoName = "qcat-blog";  // 你的博客仓库名
+
+            var issueData = {
+                title: title,
+                body: content,
+                labels: ["blog"] // 只有带 "blog" 标签的 Issue 才会变成文章
+            };
+
+            fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/issues`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `token ${githubToken}`,
+                    "Accept": "application/vnd.github.v3+json"
+                },
+                body: JSON.stringify(issueData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Post published successfully!");
+                window.location.href = "/"; // 回到首页
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Failed to publish post!");
+            });
+        }
+    </script>
+</body>
+</html>
