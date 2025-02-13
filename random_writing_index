@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Writing - QCat Blog</title>
+  <!-- 引入 Google Fonts 的 Playfair Display 字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    /* 全局样式 */
+    body {
+      font-family: 'Playfair Display', serif;
+      background-color: lightgreen;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #2e8b57;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .article-title {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .article-meta {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .article-content {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Random Writing</h1>
+  </header>
+  <main>
+    <article>
+      <h2 class="article-title">Sample Article Title</h2>
+      <div class="article-meta">Posted on January 1, 2025</div>
+      <div class="article-content">
+        <p>This is a sample article for the Random Writing category. Replace this with your actual article content.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis, nisi vel consequat interdum, erat lorem tincidunt nisi, at tristique quam felis eu tortor.</p>
+      </div>
+    </article>
+    
+    <!-- Disqus 评论区 -->
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = window.location.href;  // 当前页面的 URL
+        this.page.identifier = "random-writing-sample-article"; // 请为每篇文章设置唯一标识符
+      };
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://qcat-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>
+      Please enable JavaScript to view the 
+      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+    </noscript>
+  </main>
+</body>
+</html>
