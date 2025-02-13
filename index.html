@@ -1,131 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QCat Blog</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            font-size: 24px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .section {
-            margin-top: 20px;
-            padding: 10px;
-            border-bottom: 2px solid #ddd;
-        }
-        .section h2 {
-            margin: 0;
-            color: #333;
-        }
-        .post {
-            text-align: left;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .post h3 {
-            margin: 0;
-            color: #333;
-        }
-        .post p {
-            color: #666;
-        }
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Blog Homepage</title>
+  <style>
+    /* 全局样式 */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #007acc;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      text-align: center;
+    }
+    .button {
+      background-color: #007acc;
+      color: #fff;
+      border: none;
+      padding: 15px 25px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .button:hover {
+      background-color: #005fa3;
+    }
+    /* 模态框样式 */
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    #modalContent {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      width: 300px;
+      margin: 100px auto;
+      text-align: center;
+    }
+    .modalButton {
+      background-color: #007acc;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+    .modalButton.cancel {
+      background-color: #ccc;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <header>
-    QCat Blog
+  <header>
+    <h1>Welcome to My Blog</h1>
+  </header>
+  <main>
+    <!-- Post 按钮 -->
+    <button id="postButton" class="button">Post</button>
     <br>
-    <a href="post.html">
-        <button style="margin-top: 10px; padding: 10px; font-size: 16px;">Post Something</button>
-    </a>
-</header>
-
-    <div class="container">
-        
-        <div class="section" id="writings">
-            <h2>My Writings</h2>
-            <div class="post">
-                <h3><a href="#">Sample Writing Post 1</a></h3>
-                <p>Short description of the writing...</p>
-            </div>
-            <div class="post">
-                <h3><a href="#">Sample Writing Post 2</a></h3>
-                <p>Another short description...</p>
-            </div>
-        </div>
-        
-        <div class="section" id="translations">
-            <h2>Translations</h2>
-            <div class="post">
-                <h3><a href="#">Sample Translation 1</a></h3>
-                <p>A brief overview of the translated content...</p>
-            </div>
-            <div class="post">
-                <h3><a href="#">Sample Translation 2</a></h3>
-                <p>Another translated piece...</p>
-            </div>
-        </div>
-
-        <!-- Comment Section (Disqus) -->
-        <div id="disqus_thread"></div>
-        <script>
-    async function loadPosts() {
-        const repoOwner = "qcat1020";  // 你的 GitHub 用户名
-        const repoName = "qcat-blog";  // 你的博客仓库名
-        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/issues?labels=blog&state=open`;
-
-        try {
-            const response = await fetch(apiUrl);
-            const issues = await response.json();
-
-            const writingsSection = document.getElementById("writings");
-            const translationsSection = document.getElementById("translations");
-
-            writingsSection.innerHTML = "<h2>My Writings</h2>";
-            translationsSection.innerHTML = "<h2>Translations</h2>";
-
-            issues.forEach(issue => {
-                let postDiv = document.createElement("div");
-                postDiv.className = "post";
-                postDiv.innerHTML = `<h3><a href="post.html?id=${issue.number}">${issue.title}</a></h3>
-                                     <p>${issue.body.substring(0, 100)}...</p>`;
-
-                if (issue.labels.some(label => label.name === "translation")) {
-                    translationsSection.appendChild(postDiv);
-                } else {
-                    writingsSection.appendChild(postDiv);
-                }
-            });
-        } catch (error) {
-            console.error("Error fetching GitHub Issues:", error);
-        }
-    }
-
-    window.onload = loadPosts;
-</script>
-
+    <!-- 历史文章链接 -->
+    <a href="/random-writing.html" class="button">Random Writing</a>
+    <a href="/random-translation.html" class="button">Random Translation</a>
+  </main>
+  
+  <!-- 模态框：选择文章类别 -->
+  <div id="modal">
+    <div id="modalContent">
+      <h2>Select Post Category</h2>
+      <button id="writingButton" class="modalButton">Random Writing</button>
+      <button id="translationButton" class="modalButton">Random Translation</button>
+      <button id="cancelButton" class="modalButton cancel">Cancel</button>
     </div>
+  </div>
+  
+  <script>
+    // 获取DOM元素
+    const postButton = document.getElementById('postButton');
+    const modal = document.getElementById('modal');
+    const cancelButton = document.getElementById('cancelButton');
+    const writingButton = document.getElementById('writingButton');
+    const translationButton = document.getElementById('translationButton');
+
+    // 点击 Post 按钮显示模态框
+    postButton.addEventListener('click', () => {
+      modal.style.display = 'block';
+    });
+
+    // 点击 Cancel 按钮关闭模态框
+    cancelButton.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // 点击 "Random Writing" 按钮，打开 GitHub Issue 新建页面
+    writingButton.addEventListener('click', () => {
+      // 请将链接中的 yourusername/yourrepo 替换为你的 GitHub 仓库信息
+      window.open('https://github.com/yourusername/yourrepo/issues/new?labels=random-writing', '_blank');
+      modal.style.display = 'none';
+    });
+
+    // 点击 "Random Translation" 按钮，打开 GitHub Issue 新建页面
+    translationButton.addEventListener('click', () => {
+      // 请将链接中的 yourusername/yourrepo 替换为你的 GitHub 仓库信息
+      window.open('https://github.com/yourusername/yourrepo/issues/new?labels=random-translation', '_blank');
+      modal.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
