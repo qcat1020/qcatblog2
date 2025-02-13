@@ -91,14 +91,41 @@
         <!-- Comment Section (Disqus) -->
         <div id="disqus_thread"></div>
         <script>
-            (function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://qcat-blog.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    async function loadPosts() {
+        const repoOwner = "qcat1020";  // 你的 GitHub 用户名
+        const repoName = "qcat-blog";  // 你的博客仓库名
+        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/issues?labels=blog&state=open`;
+
+        try {
+            const response = await fetch(apiUrl);
+            const issues = await response.json();
+
+            const writingsSection = document.getElementById("writings");
+            const translationsSection = document.getElementById("translations");
+
+            writingsSection.innerHTML = "<h2>My Writings</h2>";
+            translationsSection.innerHTML = "<h2>Translations</h2>";
+
+            issues.forEach(issue => {
+                let postDiv = document.createElement("div");
+                postDiv.className = "post";
+                postDiv.innerHTML = `<h3><a href="post.html?id=${issue.number}">${issue.title}</a></h3>
+                                     <p>${issue.body.substring(0, 100)}...</p>`;
+
+                if (issue.labels.some(label => label.name === "translation")) {
+                    translationsSection.appendChild(postDiv);
+                } else {
+                    writingsSection.appendChild(postDiv);
+                }
+            });
+        } catch (error) {
+            console.error("Error fetching GitHub Issues:", error);
+        }
+    }
+
+    window.onload = loadPosts;
+</script>
+
     </div>
 </body>
 </html>
