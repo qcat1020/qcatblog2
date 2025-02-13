@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QCat Blog</title>
   <style>
-    /* 全局样式：整体草绿色 */
+    /* 整体草绿色背景 */
     body {
       font-family: Arial, sans-serif;
-      background-color: lightgreen; /* 草绿色背景 */
+      background-color: lightgreen !important;
       margin: 0;
       padding: 0;
     }
     header {
-      background-color: #2e8b57; /* 深一点的绿色作为头部背景 */
-      color: #fff;
+      background-color: #2e8b57 !important;
+      color: #fff !important;
       padding: 20px;
       text-align: center;
     }
@@ -23,8 +23,8 @@
       text-align: center;
     }
     .button {
-      background-color: #2e8b57;
-      color: #fff;
+      background-color: #2e8b57 !important;
+      color: #fff !important;
       border: none;
       padding: 15px 25px;
       margin: 10px;
@@ -35,7 +35,7 @@
       display: inline-block;
     }
     .button:hover {
-      background-color: #246b45;
+      background-color: #246b45 !important;
     }
     /* 模态框样式 */
     #modal {
@@ -46,7 +46,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.5);
+      background-color: rgba(0,0,0,0.5) !important;
     }
     #modalContent {
       background-color: #fff;
@@ -57,8 +57,8 @@
       text-align: center;
     }
     .modalButton {
-      background-color: #2e8b57;
-      color: #fff;
+      background-color: #2e8b57 !important;
+      color: #fff !important;
       border: none;
       padding: 10px 20px;
       margin: 10px;
@@ -68,8 +68,8 @@
       width: 100%;
     }
     .modalButton.cancel {
-      background-color: #ccc;
-      color: #333;
+      background-color: #ccc !important;
+      color: #333 !important;
     }
   </style>
 </head>
@@ -97,7 +97,7 @@
   </div>
   
   <script>
-    // 获取DOM元素
+    // 获取 DOM 元素
     const postButton = document.getElementById('postButton');
     const modal = document.getElementById('modal');
     const cancelButton = document.getElementById('cancelButton');
@@ -114,16 +114,14 @@
       modal.style.display = 'none';
     });
 
-    // 点击 "Random Writing" 按钮，打开 GitHub Issue 新建页面
+    // 点击 "Random Writing" 按钮，打开 GitHub Issue 页面
     writingButton.addEventListener('click', () => {
-      // 请将链接中的 yourusername/yourrepo 替换为你的 GitHub 仓库信息
       window.open('https://github.com/qcat1020/qcatblog2/issues/new?labels=random-writing', '_blank');
       modal.style.display = 'none';
     });
 
-    // 点击 "Random Translation" 按钮，打开 GitHub Issue 新建页面
+    // 点击 "Random Translation" 按钮，打开 GitHub Issue 页面
     translationButton.addEventListener('click', () => {
-      // 请将链接中的 yourusername/yourrepo 替换为你的 GitHub 仓库信息
       window.open('https://github.com/qcat1020/qcatblog2/issues/new?labels=random-translation', '_blank');
       modal.style.display = 'none';
     });
