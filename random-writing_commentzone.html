@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Writing - QCat Blog</title>
+  <!-- 引入 Google Fonts 的 Playfair Display 字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    /* 全局样式 */
+    body {
+      font-family: 'Playfair Display', serif;
+      background-color: lightgreen;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #2e8b57;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .issue-list {
+      list-style: none;
+      padding: 0;
+    }
+    .issue-list li {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+    .issue-list a {
+      text-decoration: none;
+      color: #2e8b57;
+      font-size: 20px;
+    }
+    .issue-meta {
+      font-size: 14px;
+      color: #666;
+    }
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #2e8b57;
+    }
+    .article-content {
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Random Writing</h1>
+  </header>
+  <main id="content">
+    <!-- 页面内容将由 JavaScript 动态加载 -->
+    <p>Loading...</p>
+  </main>
+  
+  <script>
+    // 请替换为你的 GitHub 用户名与仓库名
+    const repoOwner = "qcat1020";   
+    const repoName = "qcatblog2"; 
+    const label = "random-writing"; // 用于区分 Random Writing 的 Issue 标签
+
+    // 获取 URL 参数的函数
+    function getQueryParam(param) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(param);
+    }
+
+    const issueNumber = getQueryParam("issue");
+    const contentDiv = document.getElementById("content");
+
+    if (!issueNumber) {
+      // 列表视图：获取所有带有 random-writing 标签的 Issue
+      fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/issues?labels=${label}&state=all`)
+        .then(response => response.json())
+        .then(issues => {
+          if (issues.message) {
+            contentDiv.innerHTML = "<p>Error fetching issues: " + issues.message + "</p>";
+            return;
+          }
+          if (issues.length === 0) {
+            contentDiv.innerHTML = "<p>No articles found.</p>";
+            return;
+          }
+          let html = "<ul class='issue-list'>";
+          issues.forEach(issue => {
+            const createdAt = new Date(issue.created_at).toLocaleDateString();
+            html += `<li>
+                        <a href="?issue=${issue.number}">${issue.title}</a>
+                        <div class="issue-meta">Posted on ${createdAt}</div>
+                     </li>`;
+          });
+          html += "</ul>";
+          contentDiv.innerHTML = html;
+        })
+        .catch(error => {
+          contentDiv.innerHTML = "<p>Error: " + error.message + "</p>";
+        });
+    } else {
+      // 详情视图：获取指定 Issue 的详细内容
+      fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/issues/${issueNumber}`)
+        .then(response => response.json())
+        .then(issue => {
+          if (issue.message) {
+            contentDiv.innerHTML = "<p>Error fetching issue: " + issue.message + "</p>";
+            return;
+          }
+          const createdAt = new Date(issue.created_at).toLocaleDateString();
+          let html = `<h2>${issue.title}</h2>
+                      <div class="issue-meta">Posted on ${createdAt}</div>
+                      <div class="article-content">${issue.body ? issue.body : ""}</div>
+                      <a href="random-writing.html" class="back-link">&larr; Back to list</a>
+                      <div id="disqus_thread"></div>`;
+          contentDiv.innerHTML = html;
+          
+          // 集成 Disqus 评论区
+          var disqus_config = function () {
+              this.page.url = window.location.href;  // 当前页面的 URL
+              this.page.identifier = "random-writing-" + issue.number; // 唯一标识符
+          };
+          (function() {
+              var d = document, s = d.createElement('script');
+              s.src = 'https://qcat-blog.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+        })
+        .catch(error => {
+          contentDiv.innerHTML = "<p>Error: " + error.message + "</p>";
+        });
+    }
+  </script>
+  <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+</body>
+</html>
